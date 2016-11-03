@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head></h:head>
+<h:body>
+	<h:form>
+		<table border="2" align="center">
+			<tr align="center">
+				<td colspan="2">
+					<b>
+						<h:outputText value="Registar cliente" rendered="#{!clienteBean.sw_edit}" />
+						<h:outputText value="Actualizar cliente" rendered="#{clienteBean.sw_edit}" />
+					</b>
+				</td>
+			</tr>
+			<tr>
+				<td><h:outputText value="Id:" /></td>
+				<td><h:inputText value="#{clienteBean.pers_id}" disabled="true" /></td>
+			</tr>
+			<tr>
+				<td><h:outputText value="Nombre (s):" /></td>
+				<td><h:inputText value="#{clienteBean.pers_nomb}" maxlength="50" /></td>
+			</tr>
+			<tr>
+				<td><h:outputText value="Apellido:" /></td>
+				<td><h:inputText value="#{clienteBean.pers_apel}" maxlength="50" /></td>
+			</tr>
+			
+			<tr>
+				<td><h:outputText value="Usuario:" /></td>
+				<td><h:inputText value="#{clienteBean.user_user}" maxlength="20" /></td>
+			</tr>
+			
+			<tr>
+				<td><h:outputText value="Clave:" /></td>
+				<td><h:inputText value="#{clienteBean.user_pass}" maxlength="20" /></td>
+			</tr>
+			
+			<tr>
+				<td><h:outputText value="Email:" /></td>
+				<td><h:inputText value="#{clienteBean.user_emai}" maxlength="30" /></td>
+			</tr>
+			
+			<tr>
+				<td><h:outputText value="Dirección:" /></td>
+				<td><h:inputText value="#{clienteBean.pers_dire}" maxlength="50" /></td>
+			</tr>
+			
+			<tr>
+				<td><h:outputText value="Población:" /></td>
+				<td><h:inputText value="#{clienteBean.pers_pobl}" maxlength="50" /></td>
+			</tr>
+			
+			<tr>
+				<td><h:outputText value="Provincia:" /></td>
+				<td><h:inputText value="#{clienteBean.pers_prov}" maxlength="50" /></td>
+			</tr>
+			
+			<tr>
+				<td><h:outputText value="Cod. Postal:" /></td>
+				<td><h:inputText value="#{clienteBean.pers_codp}" maxlength="6" /></td>
+			</tr>
+			
+			<tr>
+				<td><h:outputText value="Telf.:" /></td>
+				<td><h:inputText value="#{clienteBean.pers_telf}" maxlength="20"/></td>
+			</tr>
+			<tr align="center">
+				<td colspan="2">
+					<p:commandButton 
+						value="Registrar"
+						action="xhtml/principal.xhtml"
+						actionListener="#{clienteBean.registrar}"
+						rendered="#{!clienteBean.sw_edit}"
+						update="@form"
+						/>
+					<p:commandButton 
+						value="Limpiar"
+						onclick="start()"
+						actionListener="#{clienteBean.limpiar}"
+						rendered="#{!clienteBean.sw_edit}"
+						update="@form"
+						/>
+					
+					<p:commandButton 
+						value="Actualizar"
+						onclick="start()"
+						actionListener="#{clienteBean.actualizar}"
+						icon="ui-icon.disk"
+						rendered="#{clienteBean.sw_edit}" 
+						update="@form"
+					/>
+				</td>
+				
+			</tr>
+			<tr><td colspan="2"><p:progressBar widgetVar="pb" /></td></tr>
+		</table>
+	</h:form>
+	<script type="text/javascript">
+		function start() {
+			this.progressInterval = setInterval(function() {
+				PF('pb').setValue(PF('pb').getValue() + 50);
+			}, 2000);
+		}
+		
+		function limpiar(){
+			var inputs=document.querySelectorAll('input');
+			for (var i in inputs) {
+				i.value="";
+			}
+		}
+	</script>
+	<h:form id="form2">
+		<h:commandLink value="Principal" action="/xhtml/principal.xhtml"></h:commandLink>
+	</h:form>
+</h:body>
+</html>

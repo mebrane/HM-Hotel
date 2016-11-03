@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head></h:head>
+<h:body>
+
+	<h:form>
+		<table align="center" border="2">
+			<tr align="center">
+				<td colspan="3"><b><h:outputText value="Inicio de Sesion" /></b></td>
+			</tr>
+			<tr>
+				<td><h:outputText value="Usuario:" /></td>
+				<td><h:inputText value="#{usuarioBean.user_user}" /></td>
+				<td rowspan="2"><h:graphicImage url="/img/logo.jpg"
+						style="width: 100px; height: 69px; " /></td>
+			</tr>
+			<tr>
+				<td><h:outputText value="Clave" /></td>
+				<td><h:inputSecret value="#{usuarioBean.user_pass}" /></td>
+			</tr>
+			<tr align="center">
+				<td colspan="3">
+					<p:commandButton 
+						value="Ingresar"
+						action="#{usuarioBean.validar}" 
+						icon="ui-icon-home"
+						onclick="start()" /> 
+					<p:commandButton 
+						value="limpiar"
+						icon="ui-icon-extlink"
+						actionListener="#{usuarioBean.limpiar}"
+						onclick="limpiar()" 
+						/>
+						
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3"><p:progressBar widgetVar="pb" /></td>
+			</tr>
+		</table>
+	</h:form>
+	<script type="text/javascript">
+		function start() {
+			this.progressInterval = setInterval(function() {
+				PF('pb').setValue(PF('pb').getValue() + 50);
+			}, 2000);
+		}
+		
+		function limpiar(){
+			var inputs=document.querySelectorAll('input');
+			for (var i in inputs) {
+				i.value="";
+			}
+		}
+	</script>
+
+
+</h:body>
+</html>

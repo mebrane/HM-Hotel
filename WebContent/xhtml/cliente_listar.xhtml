@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<title>Lista de Clientes</title>
+</h:head>
+<h:body>
+	<h:form id="form1">
+		<table align="center">
+			<tr>
+				<td colspan="2" align="center"><b><h:outputText
+							value="Buscar Clientes" /></b></td>
+			</tr>
+			<tr>
+				<td><h:outputText value="ID:" /></td>
+				<td><h:inputText value="#{clienteBean.pers_nomb}" /> <p:commandButton
+						value="Buscar" actionListener="#{clienteBean.listar}"
+						icon="ui-icon-search" update="@form" ajax="true" /></td>
+			</tr>
+			<tr>
+				<td colspan="2"><p:dataTable var="listaCargada"
+						value="#{clienteBean.listaclientes}" rows="5" paginator="true">
+						<f:facet name="header">
+							<h:outputText value="Clientes Listados" />
+						</f:facet>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="ID" />
+							</f:facet>
+							<h:outputText value="#{listaCargada.pers_id}"></h:outputText>
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Cliente" />
+							</f:facet>
+							<h:outputText
+								value="#{listaCargada.pers_apel}, #{listaCargada.pers_nomb}"></h:outputText>
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Provincia" />
+							</f:facet>
+							<h:outputText value="#{listaCargada.pers_prov}"></h:outputText>
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Teléfono" />
+							</f:facet>
+							<h:outputText value="#{listaCargada.pers_telf}"></h:outputText>
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Acciones" />
+							</f:facet>
+
+							<p:commandLink value="Eliminar"
+								actionListener="#{clienteBean.seleccionar}"		
+								onclick="PF('cd').show()"
+								>
+								<f:attribute name="atributo_id" value="#{listaCargada.pers_id}"></f:attribute>
+							</p:commandLink>
+							|
+							<p:commandLink value="Editar"
+								actionListener="#{clienteBean.modo_editar}"
+								action="/xhtml/cliente.xhtml"
+								>
+								<f:attribute name="atributo_id" value="#{listaCargada.pers_id}"></f:attribute>
+							</p:commandLink>
+							<p:confirmDialog message="Desea eliminar?"
+								header="Confirmacion!!!" severity="alert" widgetVar="cd">
+								<p:commandButton value="Si"
+									actionListener="#{clienteBean.eliminar}" ajax="true"
+									update="@form" onclick="PF('cd').hide();">
+									<f:attribute name="atributo_id" value="#{listaCargada.pers_id}"></f:attribute>
+								</p:commandButton>
+								<p:commandButton value="No" onclick="PF('cd').hide();"
+									type="button" />
+							</p:confirmDialog>
+
+						</p:column>
+						<f:facet name="footer">Existen <h:outputText
+								value="#{clienteBean.listaclientes_l}" /> registros</f:facet>
+					</p:dataTable></td>
+			</tr>
+		</table>
+	</h:form>
+	<h:form id="form2">
+		<h:commandLink value="Principal" action="/xhtml/principal.xhtml"></h:commandLink>
+	</h:form>
+</h:body>
+</html>
